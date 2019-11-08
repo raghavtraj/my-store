@@ -1,0 +1,16 @@
+<div class="container-fluid top">
+        <div class="row">
+            <div *ngFor="let item of Products">
+        <div class="card " style="width: 18rem;" *ngIf="item.isAvailable" >
+            <div class="card-body"  >
+            <img [src]=item.image class="card-img-top" alt={{item.imageAlt}}>
+            
+              <h5 class="card-title">{{item.name }}</h5>
+              <p class="card-text">Price {{item.price}}</p>
+              <p class="card-text">Driscption {{item.driscription}}</p>
+              <button href="#" class="btn btn-primary"[disabled]="!item.isAvailable">Add to cart</button>
+            </div>
+          </div>
+          </div>
+            </div>
+        </div>

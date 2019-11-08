@@ -1,0 +1,12 @@
+.btn-style
+{
+    width: 20%;
+}
+a:not([href]):not([tabindex]) {
+    color: white;
+    text-decoration: none;
+}
+b, strong {
+    font-weight: bolder;
+    font-size: xx-large;
+}
