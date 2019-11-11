@@ -1,5 +1,8 @@
-import { Component, OnInit, OnChanges, DoCheck, AfterContentChecked } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, OnInit, } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { ProductsService } from '../services/products.service';
+
 
 // tslint:disable-next-line: no-conflicting-lifecycle
 @Component({
@@ -9,14 +12,26 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class AddproductComponent implements OnInit {
   myform: FormGroup;
-  constructor() { }
+  constructor( private productservice: ProductsService) {
+  }
+
   ngOnInit() {
     this.myform = new FormGroup({
-      name: new FormControl(''),
-      price: new FormControl(''),
-      description: new FormControl(''),
-      image: new FormControl(''),
+      name: new FormControl('', [ Validators.required,Validators.maxLength(20), Validators.minLength(5)]),
+      price: new FormControl('',[Validators.required, Validators.pattern(/[0-9]/)]),
+      description: new FormControl('', Validators.maxLength(500)),
+      image: new FormControl('', Validators.required),
+      imageAlt: new FormControl(''),
+      isAvailable: new FormControl(Boolean, Validators.required),
     });
   }
+  onSubmit() {
+    console.log(this.myform.value);
+    if (this.myform.valid) {
+    this.productservice.add(this.myform.value);
+    } else {
+      alert( 'invalid' );
+    }
+    }
 
 }
