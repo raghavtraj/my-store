@@ -7,13 +7,16 @@ import { ProductComponent } from './product/product.component';
 import { AddproductComponent } from './addproduct/addproduct.component';
 import { ProductdetailsComponent } from './productdetails/productdetails.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
 const appRoutes: Routes = [
   { path: '', component: ProductComponent },
   { path: 'abc',      component: AddproductComponent },
-  { path: 'details/',      component: ProductdetailsComponent }
+  { path: 'add',      component: ProductdetailsComponent },
+  { path: 'add/:id',      component: ProductdetailsComponent },
+  { path: 'abc/:id',      component: AddproductComponent },
 ];
 @NgModule({
   declarations: [
@@ -28,7 +31,8 @@ const appRoutes: Routes = [
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only
     ),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

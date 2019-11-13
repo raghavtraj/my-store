@@ -1,9 +1,13 @@
 <div class="container">
     <h2>Add Products</h2>
     <form [formGroup]="myform" (ngSubmit)="onSubmit(myform)">
+        <div class="form-group">
+            <label for="text">Id:</label>
+            <input type="number" class="form-control"  placeholder="Enter name" formControlName="id">
+          </div>
       <div class="form-group">
         <label for="text">Name:</label>
-        <input type="text" class="form-control"  placeholder="Enter name" formControlName="name">
+        <input type="text" class="form-control"  placeholder="Enter name" formControlName="title" value="">
       </div>
       <div class="form-group">
         <label for="number">Price:</label>
@@ -11,22 +15,17 @@
       </div>
       <div class="form-group">
         <label for="text">Image URL:</label>
-        <input type="text" class="form-control" placeholder="Enter URL" formControlName="image">
+        <input type="text" class="form-control" placeholder="Enter URL" formControlName="imageUrl">
       </div>
       <div class="form-group">
         <label for="text">Description:</label>
         <input type="text area" class="form-control" placeholder="Enter Description" formControlName="description">
       </div>
-      <div class="form-group">
-        <label for="text">Image Description:</label>
-        <input type="text" class="form-control" placeholder="Enter image Description" formControlName="imageAlt">
-      </div>
+      
       <div class="form-group">
         <label for="text">Available:</label><br>
-        <select formControlName="isAvailable" id="">
-          <option value=true>True</option>
-          <option value=false>False</option>
-        </select>
+        <input type="radio" formControlName="isAvailable" value="true">Yes<br>
+        <input type="radio" formControlName="isAvailable" value="false">No
       </div>
       
       <button type="submit" class="btn btn-primary">Submit</button>

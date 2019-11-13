@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 // tslint:disable-next-line: import-spacing
 import { Product } from  '../Model/product.';
+import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
 
-  constructor( ) { }
- private  Products: Array<Product> = [
+  constructor(private http: HttpClient ) { }
+/* private  Products: Array<Product> = [
     {
       name: 'Macbook air',
       image: '../assets/macbook.jpg',
@@ -91,14 +92,30 @@ export class ProductsService {
       imageAlt: 'uno',
       isAvailable: true,
     },
-    ];
+    ]; */
   getProducts() {
 
     // tslint:disable-next-line: no-unused-expression
-   
-    return this.Products;
+    // return this.Products;
+   return this.http.get('http://localhost:3000/product/');
   }
-  add(product1) {
-    this.Products.push(product1);
+  addProduct(product1) {
+   // product1.createdAt = '';
+   // product1.updatedAt = '';
+    return this.http.post('http://localhost:3000/product/', product1);
+   // this.Products.push(product1);
  }
+  onEdit(id){
+    return  this.http.get('http://localhost:3000/product/'+id);
+
+  }
+  onModify(id,form)
+  {
+    return this.http.put('http://localhost:3000/product/'+id, form );
+  }
+  onDelete(id)
+  {
+    return this.http.delete('http://localhost:3000/product/'+id);
+  }
 }
+

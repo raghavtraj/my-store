@@ -8,7 +8,7 @@ import { Product} from '../Model/product.';
 })
 
 export class ProductComponent implements OnInit {
-  private products: Array <Product>;
+  private products;
   constructor( private productservices: ProductsService) { }
 
  /* Myproduct: Product = {
@@ -20,6 +20,9 @@ export class ProductComponent implements OnInit {
     imageAlt: 'macbook',
     isAvailable: false }; */
   ngOnInit() {
-      this.products = this.productservices.getProducts(); 
+    this.productservices.getProducts().subscribe(Response => {
+        console.log(Response);
+        this.products= Response;
+       } );
   }
 }
