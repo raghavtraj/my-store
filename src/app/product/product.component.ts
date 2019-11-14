@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { ProductsService} from '../services/products.service';
-import { Product} from '../Model/product.';
+
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -8,21 +8,24 @@ import { Product} from '../Model/product.';
 })
 
 export class ProductComponent implements OnInit {
-  private products;
+   products;
+  count = 0;
   constructor( private productservices: ProductsService) { }
 
- /* Myproduct: Product = {
-    name: 'Macbook air',
-    // tslint:disable-next-line: max-line-length
-    image: `../assets/macbook.jpg`,
-    price: 50000,
-    description: '',
-    imageAlt: 'macbook',
-    isAvailable: false }; */
   ngOnInit() {
     this.productservices.getProducts().subscribe(Response => {
         console.log(Response);
-        this.products= Response;
+        this.products = Response;
        } );
+  }
+  deleted(data)
+  {
+    this.productservices.getProducts().subscribe(Response => { this.products = Response; } );
+  }
+  cartcount(id)
+  {
+    this.count++;
+    console.log(this.count);
+
   }
 }

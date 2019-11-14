@@ -1,7 +1,6 @@
 <div class="container-fluid top">
         <div class="row">
-            
-       <app-productdetails  *ngFor="let item of products"[item]='item'></app-productdetails>
-          
+      <app-productdetails  *ngFor="let item of products"[item]='item' (isDeleted)= deleted($event) (addCart)=cartcount($event) [count]='count'></app-productdetails>
+        
         </div>
  </div>

@@ -2,8 +2,9 @@ import { Component, OnInit, } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {  Product } from '../Model/product.'
 import { ProductsService } from '../services/products.service';
-import { ActivatedRoute } from '@angular/router';
-//import { from } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Route } from '@angular/compiler/src/core';
+
 
 
 // tslint:disable-next-line: no-conflicting-lifecycle
@@ -17,9 +18,12 @@ export class AddproductComponent implements OnInit {
   myform: FormGroup;
   id: number;
   sub: any;
+  th = this;
   private selectedProduct;
   constructor( private productservice: ProductsService ,
-               private route: ActivatedRoute) { }
+               private route: ActivatedRoute,
+               // tslint:disable-next-line: no-shadowed-variable
+               private Router: Router) { }
 
   ngOnInit() {
      
@@ -36,41 +40,37 @@ export class AddproductComponent implements OnInit {
      this.route.params.subscribe(params => {
       this.id = +params.id; // (+) converts string 'id' to a number
       console.log(this.id);
+      if(this.id) {
       this.productservice.onEdit(this.id).subscribe
-      (Response => { 
+      (Response => {
         this.selectedProduct = Response;
         console.log(this.selectedProduct);
-        this.myform.patchValue
-        ({
+        this.myform.patchValue ({
           title: this.selectedProduct.title,
           id: this.selectedProduct.id,
           price: this.selectedProduct.price,
           description: this.selectedProduct.description,
           imageUrl: this.selectedProduct.imageUrl,
-        } )
+        } );
        } );
-      
-      // In a real app: dispatch action to load the details here.
+      }
    });
 
   }
-  
   onSubmit() {
     console.log(this.myform.value);
     if (this.myform.valid) {
-      if(this.id){
-        this.productservice.onModify(this.id,this.myform.value).subscribe(Response =>
-          {
-            console.log(Response);
-            
-          } );
+          if(this.id) {
+            this.productservice.onModify(this.id, this.myform.value).subscribe(Response => {
+                console.log(Response);
+                this.Router.navigate(['']);
+              } );
 
-      } else {
-    this.productservice.addProduct(this.myform.value).subscribe(Response =>
-      {
-        console.log(Response);
-      } );
-    }
+          } else {
+        this.productservice.addProduct(this.myform.value).subscribe(Response => {
+          this.Router.navigate(['']);
+        }); 
+        }
     } else {
       alert( 'invalid' );
     }

@@ -8,15 +8,17 @@ import { AddproductComponent } from './addproduct/addproduct.component';
 import { ProductdetailsComponent } from './productdetails/productdetails.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CartComponent } from './cart/cart.component';
 
 
 
 const appRoutes: Routes = [
   { path: '', component: ProductComponent },
-  { path: 'abc',      component: AddproductComponent },
-  { path: 'add',      component: ProductdetailsComponent },
-  { path: 'add/:id',      component: ProductdetailsComponent },
-  { path: 'abc/:id',      component: AddproductComponent },
+  { path: 'add-product',      component: AddproductComponent },
+  { path: 'product-detail',      component: ProductdetailsComponent },
+  { path: 'product-detail/:id',      component: ProductdetailsComponent },
+  { path: 'edit/:id',      component: AddproductComponent },
+  { path: 'cart',      component: CartComponent },
 ];
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ const appRoutes: Routes = [
     ProductComponent,
     AddproductComponent,
     ProductdetailsComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule, RouterModule.forRoot(
